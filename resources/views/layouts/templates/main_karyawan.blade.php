@@ -1,0 +1,5 @@
+@include('layouts.partials_karyawan.header')
+@include('layouts.partials_karyawan.sidebar')
+@include('layouts.partials_karyawan.navbar')
+@yield('content')
+@include('layouts.partials_karyawan.footer')

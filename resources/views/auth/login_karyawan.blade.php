@@ -70,10 +70,10 @@
               <h4 class="mb-2">Welcome Admin Soegitos</h4>
               <p class="mb-4">Please sign-in to your account</p>
 
-              <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
+              <form id="formAuthentication" class="mb-3" action="{{ route('karyawan.login') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
+                  <label for="email" class="form-label">Email or Username</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required autofocus>
                 </div>
                 <div class="mb-3 form-password-toggle">
@@ -105,13 +105,6 @@
                   <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                 </div>
               </form>
-
-              <p class="text-center">
-                <span>New Account ?</span>
-                <a href="{{ route('register') }}">
-                <span>Create an account</span>
-                </a>
-              </p>
             </div>
           </div>
           <!-- /Register -->

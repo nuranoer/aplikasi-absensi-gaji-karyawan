@@ -12,7 +12,14 @@ class Absensi extends Model
     protected $table = 'absensi';
 
     protected $fillable = [
-        'karyawan_id', 'tanggal', 'status', 'approved', 'keterangan',
+        'karyawan_id',
+        'tanggal',
+        'status',
+        'approved',
+        'keterangan',
+        'foto',
+        'lokasi',
+        'user_agent',
     ];
 
     public function karyawan()

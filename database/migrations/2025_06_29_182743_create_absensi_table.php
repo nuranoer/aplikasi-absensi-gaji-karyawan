@@ -18,10 +18,15 @@ return new class extends Migration
             $table->enum('status', ['hadir', 'izin', 'sakit', 'cuti']);
             $table->enum('approved', ['pending', 'approved', 'rejected'])->default('pending');
             $table->text('keterangan')->nullable();
+
+            // Kolom tambahan:
+            $table->string('foto')->nullable();        // untuk path foto absensi
+            $table->string('lokasi')->nullable();      // untuk koordinat lokasi (opsional)
+            $table->text('user_agent')->nullable();    // untuk informasi perangkat (opsional)
+
             $table->timestamps();
             $table->softDeletes();
         });
-
     }
 
     /**

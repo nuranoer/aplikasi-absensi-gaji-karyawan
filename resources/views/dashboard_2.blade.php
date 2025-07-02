@@ -1,4 +1,4 @@
-@extends('layouts.templates.main')
+@extends('layouts.templates.main_karyawan')
 @section('title', 'Dashboard Karyawan')
 
 @section('content')

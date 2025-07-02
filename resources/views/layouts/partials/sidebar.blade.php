@@ -1,65 +1,78 @@
-<div id="app">
-    <div id="sidebar" class="active">
-        <div class="sidebar-wrapper active">
-            <div class="sidebar-header">
-                <div class="d-flex justify-content-between">
-                    <div class="logo">
-                        <a href="{{ url('dashboard') }}">
-                            <img src="{{ asset('assets/logo/ssy.jpg') }}" alt="Logo">
-                        </a>
-                    </div>
-                    <div class="toggler">
-                        <a href="#" class="sidebar-hide d-xl-none d-block">
-                            <i class="bi bi-x bi-middle"></i>
-                        </a>
-                    </div>
-                </div>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar" data-background-color="dark">
+        <div class="sidebar-logo">
+          <!-- Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a href="index.html" class="logo">
+              <img
+                src="{{ asset('assets/logo/ssy.jpg') }}"
+                alt="navbar brand"
+                class="navbar-brand"
+                height="50"
+              />
+            </a>
+            <div class="nav-toggle">
+              <button class="btn btn-toggle toggle-sidebar">
+                <i class="gg-menu-right"></i>
+              </button>
+              <button class="btn btn-toggle sidenav-toggler">
+                <i class="gg-menu-left"></i>
+              </button>
             </div>
-
-            <div class="sidebar-menu">
-                <ul class="menu">
-                    <li class="sidebar-title">Menu</li>
-
-                    <li class="sidebar-item {{ request()->is('dashboard') ? 'active' : '' }}">
-                        <a href="{{ url('dashboard') }}" class='sidebar-link'>
-                            <i class="bi bi-grid-fill"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item {{ request()->is('karyawan*') ? 'active' : '' }}">
-                        <a href="{{ url('karyawan') }}" class='sidebar-link'>
-                            <i class="bi bi-people-fill"></i>
-                            <span>Data Karyawan</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item {{ request()->is('absensi*') ? 'active' : '' }}">
-                        <a href="{{ url('absensi') }}" class='sidebar-link'>
-                            <i class="bi bi-calendar-check-fill"></i>
-                            <span>Data Absensi</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item has-sub {{ request()->is('slip-gaji*') ? 'active' : '' }}">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-wallet-fill"></i>
-                            <span>Slip Gaji Karyawan</span>
-                        </a>
-                        <ul class="submenu">
-                            <li class="submenu-item {{ request()->is('slip-gaji') ? 'active' : '' }}">
-                                <a href="{{ url('slip-gaji') }}">Lihat Slip Gaji</a>
-                            </li>
-                            <li class="submenu-item {{ request()->is('slip-gaji/cetak') ? 'active' : '' }}">
-                                <a href="{{ url('slip-gaji/cetak') }}">Cetak Slip Gaji</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                </ul>
-            </div>
-
-            <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            <button class="topbar-toggler more">
+              <i class="gg-more-vertical-alt"></i>
+            </button>
+          </div>
+          <!-- End Logo Header -->
         </div>
-    </div>
-</div>
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+          <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+            <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
+                <a href="{{ url('dashboard') }}">
+                <i class="fas fa-home"></i>
+                <p>Dashboard</p>
+                </a>
+            </li>
+
+            <li class="nav-item {{ request()->is('karyawan*') ? 'active' : '' }}">
+                <a href="{{ url('karyawan') }}">
+                <i class="fas fa-users"></i>
+                <p>Data Karyawan</p>
+                </a>
+            </li>
+
+            <li class="nav-item {{ request()->is('absensi*') ? 'active' : '' }}">
+                <a href="{{ url('absensi') }}">
+                <i class="fas fa-calendar-check"></i>
+                <p>Data Absensi</p>
+                </a>
+            </li>
+
+            <li class="nav-item {{ request()->is('slip-gaji*') ? 'active' : '' }}">
+                <a data-bs-toggle="collapse" href="#slipGaji" class="{{ request()->is('slip-gaji*') ? '' : 'collapsed' }}" aria-expanded="{{ request()->is('slip-gaji*') ? 'true' : 'false' }}">
+                <i class="fas fa-wallet"></i>
+                <p>Slip Gaji Karyawan</p>
+                <span class="caret"></span>
+                </a>
+                <div class="collapse {{ request()->is('slip-gaji*') ? 'show' : '' }}" id="slipGaji">
+                <ul class="nav nav-collapse">
+                    <li class="{{ request()->is('slip-gaji') ? 'active' : '' }}">
+                    <a href="{{ url('slip-gaji') }}">
+                        <span class="sub-item">Lihat Slip Gaji</span>
+                    </a>
+                    </li>
+                    <li class="{{ request()->is('slip-gaji/cetak') ? 'active' : '' }}">
+                    <a href="{{ url('slip-gaji/cetak') }}">
+                        <span class="sub-item">Cetak Slip Gaji</span>
+                    </a>
+                    </li>
+                </ul>
+                </div>
+            </li>
+            </ul>
+          </div>
+        </div>
+      </div>

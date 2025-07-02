@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\SlipGajiController;
+use App\Http\Controllers\KaryawanAuthController;
+use App\Http\Controllers\AbsensiKameraController;
 
 
 Route::get('/', function () {
@@ -33,6 +35,29 @@ Route::middleware('auth')->group(function () {
     });
 
 });
+
+// FORM login karyawan
+Route::get('/login/karyawan', [KaryawanAuthController::class, 'showLoginForm'])->name('karyawan.login');
+
+// POST login karyawan
+Route::post('/login/karyawan', [KaryawanAuthController::class, 'login']);
+
+// Logout karyawan
+Route::post('/logout/karyawan', [KaryawanAuthController::class, 'logout'])->name('karyawan.logout');
+
+// Dashboard khusus karyawan, pakai guard 'karyawan'
+Route::middleware(['auth:karyawan'])->group(function () {
+    Route::get('/dashboard_auth', function () {
+        return view('dashboard_2');
+    })->name('dashboard.karyawan');
+});
+
+Route::middleware(['auth:karyawan'])->group(function () {
+    Route::get('/absensi/kamera', [AbsensiKameraController::class, 'index'])->name('absensi.kamera');
+    Route::post('/absensi/kamera', [AbsensiKameraController::class, 'store'])->name('absensi.kamera.store');
+});
+
+
 
 
 
