@@ -3,49 +3,62 @@
 @section('title', 'Data Karyawan')
 
 @section('content')
-        <div class="container">
-          <div class="page-inner">
-            <div class="page-header">
-              <h3 class="fw-bold mb-3">Data Karyawan</h3>
-              <ul class="breadcrumbs mb-3">
-                <li class="nav-home">
-                  <a href="/">
-                    <i class="icon-home"></i>
-                  </a>
-                </li>
-                <li class="separator">
-                  <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                  <a href="/karyawan">Data Karyawan</a>
-                </li>
-              </ul>
-            </div>
+<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+            <i class="bi bi-justify fs-3"></i>
+        </a>
+    </header>
+
+    <div class="page-heading">
+        <div class="page-title">
             <div class="row">
-              <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title">Data Karyawan</h4>
-                  </div>
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table
-                        id="basic-datatables"
-                        class="display table table-striped table-hover"
-                      >
-                        <thead>
-                          <tr>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Jabatan</th>
-                                <th>Alamat</th>
-                                <th>Tanggal Dibuat</th>
-                                <th>Aksi</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                                @forelse ($karyawan as $k)
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                    <h3>Karyawan</h3>
+                    <p class="text-subtitle text-muted">Data Karyawan PT. Soegitos</p>
+                </div>
+                <div class="col-12 col-md-6 order-md-2 order-first">
+                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Data Karyawan</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section start -->
+        <section class="section">
+            <div class="row" id="table-bordered">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">Data Karyawan</h4>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalTambah">
+                                <i class="bi bi-plus-circle"></i> Tambah Karyawan
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            @if (session('success'))
+                                <div class="alert alert-success">{{ session('success') }}</div>
+                            @endif
+                        </div>
+                        <div class="table-responsive px-3 pb-3">
+                            <table class="table table-bordered" id="datatable-karyawan">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Email</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>Jabatan</th>
+                                        <th>Alamat</th>
+                                        <th>Tanggal Dibuat</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($karyawan as $k)
                                         <tr>
                                             <td>{{ $k->nama }}</td>
                                             <td>{{ $k->email }}</td>
@@ -76,16 +89,17 @@
                                         <tr>
                                             <td colspan="7" class="text-center">Belum ada data karyawan.</td>
                                         </tr>
-                                    @endforelse                        
-                        </tbody>
-                      </table>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
+        </section>
+    </div>
+</div>
+
 <!-- Modal Tambah -->
 <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="modalTambahLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -176,7 +190,29 @@
 @endsection
 
 @push('scripts')
+<!-- DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
 <script>
-$(document).ready(function () {
-        $("#basic-datatables").DataTable({});</script>
+    $(document).ready(function () {
+        $('#datatable-karyawan').DataTable();
+
+        $('.edit-btn').on('click', function () {
+            const id = $(this).data('id');
+            const form = $('#formEdit');
+            form.attr('action', `/karyawan/${id}`);
+
+            console.log($(this).data());
+
+            $('#edit-nama').val($(this).data('nama'));
+            $('#edit-email').val($(this).data('email'));
+            $('#edit-jenis_kelamin').val($(this).data('jenis_kelamin'));
+            $('#edit-jabatan').val($(this).data('jabatan'));
+            $('#edit-alamat').val($(this).data('alamat'));
+        });
+    });
+</script>
 @endpush

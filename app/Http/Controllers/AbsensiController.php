@@ -42,4 +42,15 @@ class AbsensiController extends Controller
 
         return back()->with('success', 'Absensi berhasil di-reject.');
     }
+
+    public function info()
+    {
+        $absensi = Absensi::with('karyawan')
+            ->whereIn('status', ['izin', 'sakit', 'cuti'])
+            ->orderBy('tanggal', 'desc')
+            ->get();
+
+        return view('absensi.approve', compact('absensi'));
+    }
+
 }

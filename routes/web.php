@@ -27,12 +27,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
     Route::post('/absensi/{id}/approve', [AbsensiController::class, 'approve'])->name('absensi.approve');
     Route::post('/absensi/{id}/reject', [AbsensiController::class, 'reject'])->name('absensi.reject');
+    Route::get('/absensi/info', [AbsensiController::class, 'info'])->name('absensi.info');
 
-    Route::prefix('slip-gaji')->middleware('auth')->group(function () {
-    Route::get('/', [SlipGajiController::class, 'index'])->name('slip-gaji.index');
-    Route::patch('/approve/{id}', [SlipGajiController::class, 'approve'])->name('slip-gaji.approve');
-    Route::get('/export/{id}', [SlipGajiController::class, 'exportPdf'])->name('slip-gaji.export');
-    });
+
+    Route::get('/slip-gaji', [SlipGajiController::class, 'index'])->name('slipgaji.index');
+    Route::post('/slip-gaji/simpan', [SlipGajiController::class, 'store'])->name('slipgaji.store');
+    Route::get('/slip-gaji/cetak', [SlipGajiController::class, 'cetak'])->name('slipgaji.cetak');
+
 
 });
 

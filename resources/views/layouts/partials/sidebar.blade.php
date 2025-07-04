@@ -30,49 +30,69 @@
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
             <ul class="nav nav-secondary">
-            <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
+              <!-- Dashboard -->
+              <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
                 <a href="{{ url('dashboard') }}">
-                <i class="fas fa-home"></i>
-                <p>Dashboard</p>
+                  <i class="fas fa-home"></i>
+                  <p>Dashboard</p>
                 </a>
-            </li>
+              </li>
 
-            <li class="nav-item {{ request()->is('karyawan*') ? 'active' : '' }}">
+              <!-- Data Karyawan -->
+              <li class="nav-item {{ request()->is('karyawan*') ? 'active' : '' }}">
                 <a href="{{ url('karyawan') }}">
-                <i class="fas fa-users"></i>
-                <p>Data Karyawan</p>
+                  <i class="fas fa-users"></i>
+                  <p>Data Karyawan</p>
                 </a>
-            </li>
+              </li>
 
-            <li class="nav-item {{ request()->is('absensi*') ? 'active' : '' }}">
-                <a href="{{ url('absensi') }}">
-                <i class="fas fa-calendar-check"></i>
-                <p>Data Absensi</p>
+              <!-- Absensi -->
+              <li class="nav-item {{ request()->is('absensi*') ? 'active' : '' }}">
+                <a data-bs-toggle="collapse" href="#absensi" class="{{ request()->is('absensi*') ? '' : 'collapsed' }}" aria-expanded="{{ request()->is('absensi*') ? 'true' : 'false' }}">
+                  <i class="fas fa-calendar-check"></i>
+                  <p>Absensi</p>
+                  <span class="caret"></span>
                 </a>
-            </li>
+                <div class="collapse {{ request()->is('absensi*') ? 'show' : '' }}" id="absensi">
+                  <ul class="nav nav-collapse">
+                    <li class="nav-item {{ request()->is('absensi') ? 'active' : '' }}">
+                      <a href="{{ url('absensi') }}">
+                        <span class="sub-item">Data Absensi</span>
+                      </a>
+                    </li>
+                    <li class="nav-item {{ request()->is('absensi/info') ? 'active' : '' }}">
+                      <a href="{{ url('absensi/info') }}">
+                        <span class="sub-item">Info Kehadiran</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
 
-            <li class="nav-item {{ request()->is('slip-gaji*') ? 'active' : '' }}">
+              <!-- Slip Gaji -->
+              <li class="nav-item {{ request()->is('slip-gaji*') ? 'active' : '' }}">
                 <a data-bs-toggle="collapse" href="#slipGaji" class="{{ request()->is('slip-gaji*') ? '' : 'collapsed' }}" aria-expanded="{{ request()->is('slip-gaji*') ? 'true' : 'false' }}">
-                <i class="fas fa-wallet"></i>
-                <p>Slip Gaji Karyawan</p>
-                <span class="caret"></span>
+                  <i class="fas fa-wallet"></i>
+                  <p>Slip Gaji Karyawan</p>
+                  <span class="caret"></span>
                 </a>
                 <div class="collapse {{ request()->is('slip-gaji*') ? 'show' : '' }}" id="slipGaji">
-                <ul class="nav nav-collapse">
-                    <li class="{{ request()->is('slip-gaji') ? 'active' : '' }}">
-                    <a href="{{ url('slip-gaji') }}">
+                  <ul class="nav nav-collapse">
+                    <li class="nav-item {{ request()->is('slip-gaji') ? 'active' : '' }}">
+                      <a href="{{ url('slip-gaji') }}">
                         <span class="sub-item">Lihat Slip Gaji</span>
-                    </a>
+                      </a>
                     </li>
-                    <li class="{{ request()->is('slip-gaji/cetak') ? 'active' : '' }}">
-                    <a href="{{ url('slip-gaji/cetak') }}">
+                    <li class="nav-item {{ request()->is('slip-gaji/cetak') ? 'active' : '' }}">
+                      <a href="{{ url('slip-gaji/cetak') }}">
                         <span class="sub-item">Cetak Slip Gaji</span>
-                    </a>
+                      </a>
                     </li>
-                </ul>
+                  </ul>
                 </div>
-            </li>
+              </li>
             </ul>
+
           </div>
         </div>
       </div>

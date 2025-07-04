@@ -41,4 +41,35 @@ class KaryawanController extends Controller
 
         return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil ditambahkan.');
     }
+
+    public function update(Request $request, $id)
+    {
+        $karyawan = Karyawan::findOrFail($id);
+
+        $request->validate([
+            'nama' => 'required',
+            'email' => 'required|email|unique:karyawan,email,' . $id,
+            'jenis_kelamin' => 'required',
+            'alamat' => 'nullable',
+            'jabatan' => 'required'
+        ]);
+
+        $karyawan->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat,
+            'jabatan' => $request->jabatan,
+        ]);
+
+        return redirect()->route('karyawan.index')->with('success', 'Data karyawan berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $karyawan = Karyawan::findOrFail($id);
+        $karyawan->delete();
+
+        return redirect()->route('karyawan.index')->with('success', 'Data karyawan berhasil dihapus.');
+    }
 }
