@@ -1,4 +1,5 @@
 @extends('layouts.templates.main_karyawan')
+@section('title', 'Absensi')
 
 @section('content')
 <div class="container py-4">

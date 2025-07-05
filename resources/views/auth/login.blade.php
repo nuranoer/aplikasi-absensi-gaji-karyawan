@@ -1,74 +1,168 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  class="light-style customizer-hide"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="{{ asset('sneat/assets/') }}/"
-  data-template="vertical-menu-template-free"
->
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Absensi - Soegitos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding-top: 120px;
+    }
 
-    <title>Login</title>
+    .logo-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: start;
+      padding: 15px 30px;
+      box-sizing: border-box;
+      color: white;
+    }
 
-    <meta name="description" content="" />
+    .logo-top video {
+      height: 64px;
+      width: 64px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 15px;
+    }
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo/ssy.jpg') }}" />
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
+    .logo-text span.company-name {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
 
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('sneat/assets/vendor/fonts/boxicons.css') }}" />
+    .logo-text small {
+      font-size: 0.9rem;
+      line-height: 1.2;
+      color: #f0f0f0;
+    }
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('sneat/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('sneat/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('sneat/assets/css/demo.css') }}" />
+    .login-box {
+      background: #ffffff;
+      padding: 2rem 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 100%;
+      max-width: 420px;
+    }
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('sneat/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+    .login-box img.logo-login {
+      width: 100px;
+      margin-bottom: 20px;
+    }
 
-    <!-- Page CSS -->
-    <!-- Page -->
-    <link rel="stylesheet" href="{{ asset('sneat/assets/vendor/css/pages/page-auth.css') }}" />
-    <!-- Helpers -->
-    <script src="{{ asset('sneat/assets/vendor/js/helpers.js') }}"></script>
+    .title-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
 
-    <script src="{{ asset('sneat/assets/js/config.js') }}"></script>
-  </head>
+    .title-box img.user-icon {
+      width: 32px;
+      height: 32px;
+    }
 
-  <body>
-    <!-- Content -->
+    .title-box span {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #333;
+    }
 
-    <div class="container-xxl">
-      <div class="authentication-wrapper authentication-basic container-p-y">
-        <div class="authentication-inner">
-          <!-- Register -->
-          <div class="card">
-            <div class="card-body">
-              <!-- Logo -->
-              <div class="app-brand justify-content-center">
-                <a href="{{ url('/login') }}" class="app-brand-link gap-2">
-                    <span class="app-brand-logo demo">
-                    <img src="{{ asset('assets/logo/ssy.jpg') }}" alt="Logo" width="80">
-                    </span>
-                </a>
-              </div>
-              <!-- /Logo -->
-              <h4 class="mb-2">Welcome Admin Soegitos</h4>
-              <p class="mb-4">Please sign-in to your account</p>
+    .form-control {
+      margin-bottom: 15px;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      width: 100%;
+      border-radius: 8px;
+      background-color: #1e3c72;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background-color: #16325c;
+    }
+
+    .footer-text {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    @media (max-width: 576px) {
+      .logo-top video {
+        height: 48px;
+        width: 48px;
+      }
+
+      .logo-text span.company-name {
+        font-size: 1.2rem;
+      }
+
+      .logo-text small {
+        font-size: 0.75rem;
+      }
+
+      .title-box span {
+        font-size: 1.2rem;
+      }
+
+      .title-box img.user-icon {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header logo lebar penuh (Video + Nama Perusahaan + Slogan) -->
+  <div class="logo-top">
+    <video autoplay muted loop playsinline>
+      <source src="{{ asset('assets/vidio/Vid1SSY.mp4') }}" type="video/mp4">
+      Browser Anda tidak mendukung tag video.
+    </video>
+    <div class="logo-text">
+      <span class="company-name">PT. SOEGITOS SRI YOEWANTI</span>
+      <small>SMART SOLUTION FOR YOUR TECHNOLOGY AND SOLUTION FOR THE NEEDS OF ELECTRONICS</small>
+    </div>
+  </div>
+
+  <!-- Kotak login -->
+  <div class="login-box">
+    <img src="{{ asset('assets/logo/ssy.jpg') }}" alt="Logo" class="logo-login">
+
+    <!-- Judul dengan ikon user -->
+    <div class="title-box">
+      <img src="{{ asset('assets/logo/user.png') }}" alt="User Icon" class="user-icon">
+      <span>Sistem Absensi Digital</span>
+    </div>
 
               <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
                 @csrf
@@ -112,31 +206,8 @@
                 <span>Create an account</span>
                 </a>
               </p>
-            </div>
-          </div>
-          <!-- /Register -->
-        </div>
-      </div>
-    </div>
+    <p class="footer-text">© 2025 Soegitos. All rights reserved.</p>
+  </div>
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('sneat/assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('sneat/assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('sneat/assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('sneat/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-
-    <script src="{{ asset('sneat/assets/vendor/js/menu.js') }}"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-
-    <!-- Main JS -->
-    <script src="{{ asset('sneat/assets/js/main.js') }}"></script>
-
-    <!-- Page JS -->
-
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-  </body>
+</body>
 </html>
