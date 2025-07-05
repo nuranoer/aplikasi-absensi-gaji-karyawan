@@ -8,7 +8,18 @@ class SlipGaji extends Model
     protected $table = 'slip_gaji';
 
     protected $fillable = [
-        'karyawan_id', 'periode', 'gaji_pokok', 'tunjangan', 'potongan', 'total_gaji', 'keterangan'
+        'karyawan_id',
+        'periode_bulan',
+        'periode_tahun',
+        'gaji_pokok',
+        'tunjangan',
+        'potongan',
+        'total_gaji',
+        'keterangan',
+        'hari_kerja',
+        'izin',
+        'sakit',
+        'cuti'
     ];
 
     public function karyawan()

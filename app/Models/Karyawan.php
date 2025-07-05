@@ -16,4 +16,12 @@ class Karyawan extends Authenticatable
     ];
 
     protected $hidden = ['password'];
+
+    public function absensi(){
+        return $this->hasMany(Absensi::class);
+    }
+
+    public function slipGaji(){
+        return $this->hasMany(SlipGaji::class);
+    }
 }

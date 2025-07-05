@@ -14,6 +14,8 @@
     />
 
     <!-- Fonts and icons -->
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('js/dayjs.min.js') }}"></script>
     <script src="{{ asset('kaiadmin/assets/js/plugin/webfont/webfont.min.js') }}"></script>
     <script>
       WebFont.load({
@@ -34,6 +36,7 @@
     </script>
 
     <!-- CSS Files -->
+    <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('kaiadmin/assets/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('kaiadmin/assets/css/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('kaiadmin/assets/css/kaiadmin.min.css') }}" />
