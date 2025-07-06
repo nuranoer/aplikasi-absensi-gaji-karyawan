@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success">Update</button>
+                    <button class="btn btn-success">Simpan</button>
                 </div>
             </div>
         </form>

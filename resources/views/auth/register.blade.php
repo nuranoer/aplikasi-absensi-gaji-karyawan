@@ -1,137 +1,202 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  class="light-style customizer-hide"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="{{ asset('sneat/assets/') }}/"
-  data-template="vertical-menu-template-free"
->
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
+<html lang="id">
 
-    <title>Register</title>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Akun - Soegitos</title>
 
-    <meta name="description" content="" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo/ssy.jpg') }}" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding-top: 120px;
+        }
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com') }}" />
-    <link rel="preconnect" href="https://fonts.gstatic.com') }}" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
+        .logo-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: start;
+            padding: 15px 30px;
+            color: white;
+        }
 
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('sneat/assets/vendor/fonts/boxicons.css') }}" />
+        .logo-top video {
+            height: 64px;
+            width: 64px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('sneat/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('sneat/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('sneat/assets/css/demo.css') }}" />
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('sneat/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+        .logo-text span.company-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
 
-    <!-- Page CSS -->
-    <!-- Page -->
-    <link rel="stylesheet" href="{{ asset('sneat/assets/vendor/css/pages/page-auth.css') }}" />
-    <!-- Helpers -->
-    <script src="{{ asset('sneat/assets/vendor/js/helpers.js') }}"></script>
+        .logo-text small {
+            font-size: 0.9rem;
+            line-height: 1.2;
+            color: #f0f0f0;
+        }
 
-    <script src="{{ asset('sneat/assets/js/config.js') }}"></script>
-  </head>
+        .register-box {
+            background: #ffffff;
+            padding: 2rem 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 480px;
+        }
 
-  <body>
-    <!-- Content -->
+        .register-box img.logo-login {
+            width: 100px;
+            margin-bottom: 20px;
+        }
 
-    <div class="container-xxl">
-      <div class="authentication-wrapper authentication-basic container-p-y">
-        <div class="authentication-inner">
-          <!-- Register Card -->
-          <div class="card">
-            <div class="card-body">
-              <!-- Logo -->
-              <div class="app-brand justify-content-center">
-                <a href="{{ url('/register') }}" class="app-brand-link gap-2">
-                    <span class="app-brand-logo demo">
-                    <img src="{{ asset('assets/logo/ssy.jpg') }}" alt="Logo" width="80">
-                    </span>
-                </a>
-              </div>
-              <!-- /Logo -->
-              <h4 class="mb-2">Welcome Admin Soegitos</h4>
-              <form id="formAuthentication" class="mb-3" action="{{ route('register') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required />
-                </div>
+        .title-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
 
-                <!-- <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required />
-                </div>                 -->
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
-                </div>
-                <div class="mb-3 form-password-toggle">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="input-group input-group-merge">
-                    <input type="password" id="password" class="form-control" name="password" required />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                    </div>
-                </div>
+        .title-box img.user-icon {
+            width: 32px;
+            height: 32px;
+        }
 
-                <div class="mb-3 form-password-toggle">
-                    <label for="password_confirmation" class="form-label">Confirm Password</label>
-                    <div class="input-group input-group-merge">
-                    <input type="password" id="password_confirmation" class="form-control" name="password_confirmation" required />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                    </div>
-                </div>                
-                <button class="btn btn-primary d-grid w-100">Sign up</button>
-              </form>
+        .title-box span {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #333;
+        }
 
-              <p class="text-center">
-                <span>Already have an account?</span>
-                <a href="{{ route('login') }}">
-                  <span>Sign in instead</span>
-                </a>
-              </p>
-            </div>
-          </div>
-          <!-- Register Card -->
+        .form-control {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .input-group-text {
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            width: 100%;
+            border-radius: 8px;
+            background-color: #1e3c72;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background-color: #16325c;
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="logo-top">
+        <video autoplay muted loop playsinline>
+            <source src="{{ asset('assets/vidio/Vid1SSY.mp4') }}" type="video/mp4" />
+            Browser Anda tidak mendukung tag video.
+        </video>
+        <div class="logo-text">
+            <span class="company-name">PT. SOEGITOS SRI YOEWANTI</span>
+            <small>SMART SOLUTION FOR YOUR TECHNOLOGY AND SOLUTION FOR THE NEEDS OF ELECTRONICS</small>
         </div>
-      </div>
     </div>
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('sneat/assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('sneat/assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('sneat/assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('sneat/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    <div class="register-box">
+        <img src="{{ asset('assets/logo/ssy.jpg') }}" alt="Logo" class="logo-login" />
 
-    <script src="{{ asset('sneat/assets/vendor/js/menu.js') }}"></script>
-    <!-- endbuild -->
+        <div class="title-box">
+            <img src="{{ asset('assets/logo/user.png') }}" alt="User Icon" class="user-icon" />
+            <span>Registrasi Akun</span>
+        </div>
 
-    <!-- Vendors JS -->
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
 
-    <!-- Main JS -->
-    <script src="{{ asset('sneat/assets/js/main.js') }}"></script>
+            <input type="text" name="name" class="form-control" placeholder="Nama lengkap" value="{{ old('name') }}"
+                required autofocus>
 
-    <!-- Page JS -->
+            <input type="email" name="email" class="form-control" placeholder="Alamat Email" value="{{ old('email') }}"
+                required>
 
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-  </body>
+            <div class="input-group mb-3">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password"
+                    required>
+                <span class="input-group-text" onclick="togglePassword('password', this)">
+                    <i class="bi bi-eye-slash"></i>
+                </span>
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
+                    placeholder="Konfirmasi Password" required>
+                <span class="input-group-text" onclick="togglePassword('password_confirmation', this)">
+                    <i class="bi bi-eye-slash"></i>
+                </span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Daftar</button>
+
+            <p class="text-center mt-3">
+                Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a>
+            </p>
+        </form>
+
+        <p class="footer-text">© 2025 Soegitos. All rights reserved.</p>
+    </div>
+
+    <!-- JS for show/hide password -->
+    <script>
+        function togglePassword(id, el) {
+            const input = document.getElementById(id);
+            const icon = el.querySelector('i');
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye");
+            } else {
+                input.type = "password";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash");
+            }
+        }
+    </script>
+
+</body>
+
 </html>
