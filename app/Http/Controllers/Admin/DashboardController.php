@@ -3,48 +3,37 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Karyawan;
+use Illuminate\Http\Request;
 use App\Models\Absensi;
-use App\Models\Gaji;
-use Carbon\Carbon;
-use DB;
+use App\Models\SlipGaji;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $today = Carbon::today();
+        $bulanIni = now()->month;
+        $tahunIni = now()->year;
 
-        // Jumlah karyawan
-        $totalKaryawan = User::where('role', 'karyawan')->count();
-
-        // Total absensi hari ini
-        $absensiHariIni = Absensi::whereDate('tanggal', $today)->count();
-
-        // Jumlah karyawan yang hadir dan tidak hadir
-        $jumlahHadir = Absensi::whereDate('tanggal', $today)->where('status', 'hadir')->count();
-        $jumlahTidakHadir = $totalKaryawan - $jumlahHadir;
-
-        // Total slip gaji yang sudah di-generate bulan ini
-        $bulanIni = Carbon::now()->format('Y-m');
-        $slipGajiBulanIni = Gaji::where('periode', $bulanIni)->count();
-
-        // Chart absensi 30 hari terakhir
-        $absensiPerHari = Absensi::select(DB::raw('DATE(tanggal) as tanggal'), DB::raw('COUNT(*) as jumlah'))
+        $hadir = Absensi::whereMonth('created_at', $bulanIni)
+            ->whereYear('created_at', $tahunIni)
             ->where('status', 'hadir')
-            ->whereDate('tanggal', '>=', Carbon::now()->subDays(30))
-            ->groupBy('tanggal')
-            ->orderBy('tanggal')
-            ->get();
+            ->count();
 
-        return view('admin.dashboard', compact(
-            'totalKaryawan',
-            'absensiHariIni',
-            'jumlahHadir',
-            'jumlahTidakHadir',
-            'slipGajiBulanIni',
-            'absensiPerHari',
-            'absenHadir'
-        ));
+        $tidakHadir = Absensi::whereMonth('created_at', $bulanIni)
+            ->whereYear('created_at', $tahunIni)
+            ->where('status', '!=', 'hadir')
+            ->count();
+
+        $totalGaji = SlipGaji::whereMonth('created_at', $bulanIni)
+            ->whereYear('created_at', $tahunIni)
+            ->sum('total_gaji');
+
+        $jumlahKaryawan = Karyawan::count();
+
+        $slipTerbaru = SlipGaji::latest()->take(10)->get("total_gaji");
+
+        return view('admin.dashboard', compact('hadir', 'tidakHadir', 'totalGaji', 'jumlahKaryawan', 'slipTerbaru'));
     }
 }

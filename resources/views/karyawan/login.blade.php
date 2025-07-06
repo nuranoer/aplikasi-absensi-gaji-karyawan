@@ -171,7 +171,7 @@
             <span>Sistem Absensi Digital</span>
         </div>
 
-        <form id="formAuthentication" class="mb-3" action="/login" method="POST">
+        <form id="formAuthentication" class="mb-3" action="{{ route('karyawan.login.process') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required
@@ -179,8 +179,8 @@
             </div>
             <div class="mb-3 form-password-toggle">
                 <div class="input-group input-group-merge">
-                    <input type="password" id="password" class="form-control" name="password" placeholder="Password"
-                        aria-describedby="password" />
+                    <input type="password" id="password" class="form-control m-auto" name="password"
+                        placeholder="Password" aria-describedby="password" />
                     <span class="input-group-text cursor-pointer" id="togglePassword">
                         <i class="bi bi-eye-slash" id="eyeIcon"></i>
                     </span>

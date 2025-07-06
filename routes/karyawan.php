@@ -5,19 +5,18 @@ use App\Http\Controllers\Karyawan\AuthController;
 use App\Http\Controllers\Karyawan\DashboardController;
 use App\Http\Controllers\Karyawan\SlipGajiController;
 
-Route::prefix('login')->group(function () {
+Route::prefix('login')->middleware('guest.karyawan')->group(function () {
     Route::get('/karyawan', [AuthController::class, 'showLoginForm'])->name('karyawan.login');
     Route::post('/karyawan', [AuthController::class, 'login'])->name('karyawan.login.process');
 });
 
-// Dashboard khusus karyawan, pakai guard 'karyawan'
-Route::middleware(['auth:karyawan'])->group(function () {
+Route::middleware(['auth.karyawan'])->group(function () {
     // Logout karyawan
     Route::post('/logout/karyawan', [AuthController::class, 'logout'])->name('karyawan.logout');
 
     Route::prefix('karyawan')->group(function () {
-        // Route::get('/', [DashboardController::class, 'index'])->name('karyawan.dashboard');
-        Route::get('/', [DashboardController::class, fn() => view('karyawan.dashboard')])->name('karyawan.dashboard');
+        Route::get('/', [DashboardController::class, 'index'])->name('karyawan.dashboard');
+        // Route::get('/', [DashboardController::class, fn() => view('karyawan.dashboard')])->name('karyawan.dashboard');
 
         Route::get('/absensi', [AbsensiController::class, 'history'])->name('karyawan.absensi');
         Route::get('/absensi/pengajuan', [AbsensiController::class, 'index'])->name('karyawan.absensi.pengajuan');

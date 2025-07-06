@@ -72,7 +72,7 @@
     <h2 class="header">SLIP GAJI KARYAWAN</h2>
 
     <div class="company-info">
-        PT SOEGITOS MAJU JAYA<br>
+        PT. SOEGITOS SRI YOEWANTI<br>
         Jln. Sayuti Melik, No. 15
     </div>
 
@@ -114,7 +114,7 @@
             </tr>
             <tr>
                 <td>Potongan</td>
-                <td>{{ number_format(0-$gaji->potongan) }}</td>
+                <td>{{ number_format(0 - $gaji->potongan) }}</td>
             </tr>
             <tr class="total-row">
                 <td>Total Diterima</td>

@@ -7,8 +7,8 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SlipGajiController;
 
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
-    // Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/', [DashboardController::class, fn()=>view('admin.dashboard')])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/', [DashboardController::class, fn()=>view('admin.dashboard')])->name('dashboard');
     
     Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
