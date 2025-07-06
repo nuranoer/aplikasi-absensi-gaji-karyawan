@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>@yield('title', 'Default Title')</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-    <link rel="icon" href="{{ asset('assets/logo/ssy.jpg') }}" type="image/jpg"/>
+    <link rel="icon" href="{{ public_path('assets/logo/ssy.jpg') }}" type="image/jpg"/>
 
     <!--   Core JS Files   -->
     <script src="{{ asset('kaiadmin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
