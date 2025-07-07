@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Karyawan;
 
 use App\Http\Controllers\Controller;
+use App\Models\Perizinan;
 use Illuminate\Http\Request;
 use App\Models\Absensi;
 use Illuminate\Support\Facades\Auth;
@@ -19,62 +20,74 @@ class AbsensiController extends Controller
     public function index()
     {
         $karyawan = Auth::guard('karyawan')->user();
-        return view('karyawan.absensi.pengajuan', [
-            'available' => Absensi::where('karyawan_id', $karyawan->id)
-                ->where(function ($q) {
-                    $q->where('approved', 'approved')
-                        ->orWhere('approved', 'pending');
-                })->whereDate('created_at', now())->count() == 0
+
+        $today = now()->toDateString();
+
+        $absensiToday = Absensi::where('karyawan_id', $karyawan->id)
+            ->whereDate('created_at', $today)
+            ->latest()
+            ->get();
+
+        $absenMasuk = $absensiToday->firstWhere('tipe', 'masuk');
+        $absenMasukStatus = $absenMasuk->persetujuan ?? null;
+
+        $hasPulang = $absensiToday->contains(function ($item) {
+            return $item->tipe === 'pulang';
+        });
+
+        $tipe = null;
+        $message = 'Tidak ada absensi yang tersedia.';
+
+        // Cek izin terlebih dahulu
+        $hasPerizinan = Perizinan::where('karyawan_id', $karyawan->id)
+            ->whereIn('persetujuan', ['approved', 'pending'])
+            ->whereDate('created_at', $today)
+            ->exists();
+
+        if ($hasPerizinan) {
+            $tipe = null;
+            $message = 'Anda tidak dapat melakukan absensi karena sudah mengajukan perizinan hari ini.';
+        } elseif (!$absenMasuk || $absenMasukStatus === 'rejected') {
+            // Belum pernah absen masuk, atau sebelumnya ditolak
+            if (now()->lt(now()->setTime(6, 0))) {
+                // Masih sebelum jam 6
+                $tipe = null;
+                $message = 'Belum bisa absen masuk sebelum jam 6 pagi.';
+            } else {
+                $tipe = 'masuk';
+                $message = !$absenMasuk
+                    ? 'Silakan lakukan absensi masuk.'
+                    : 'Absensi masuk Anda sebelumnya ditolak. Silakan absen masuk ulang.';
+            }
+        } elseif ($absenMasukStatus === 'pending') {
+            $tipe = null;
+            $message = 'Absensi masuk Anda sedang menunggu persetujuan. Anda belum dapat melakukan absensi pulang.';
+        } elseif ($absenMasukStatus === 'approved' && !$hasPulang) {
+            if (now()->lt(now()->setTime(16, 0))) {
+                // Masih sebelum jam 16:00
+                $tipe = null;
+                $message = 'Belum bisa absen pulang sebelum jam 4 sore.';
+            } else {
+                $tipe = 'pulang';
+                $message = 'Silakan lakukan absensi pulang.';
+            }
+        } elseif ($absenMasukStatus === 'approved' && $hasPulang) {
+            $tipe = null;
+            $message = 'Anda sudah melakukan absensi masuk dan pulang hari ini.';
+        }
+
+        return view('karyawan.absensi.index', [
+            'nama' => $karyawan->nama,
+            'tipe' => $tipe,
+            'message' => $message,
         ]);
     }
 
     public function store(Request $request)
     {
         $fields = $request->validate([
-            'bukti' => 'required|file|mimes:jpg,jpeg,png',
-            'status' => 'required|string|in:izin,sakit,cuti',
-            'keterangan' => 'required|string'
-        ]);
-
-        $karyawan = Auth::guard('karyawan')->user();
-
-        $img = Image::read($fields['bukti']);
-        $path = 'perizinan/' . Carbon::now()->format('Y-m-d') . '/' . $karyawan->id . '.jpeg';
-
-        Storage::disk('public')->put($path, $img->encode()->toFilePointer());
-        Absensi::create([
-            'karyawan_id' => $karyawan->id,
-            'tanggal' => Carbon::now(),
-            'status' => $fields['status'],
-            'keterangan' => $fields['keterangan'],
-            'foto' => Storage::url($path),
-            'user_agent' => $request->userAgent(),
-        ]);
-        return to_route('karyawan.absensi')->with('success', 'Berhasil mengajukan, silahkan menunggu persetujuan!');
-    }
-
-    public function history()
-    {
-        $absensi = Auth::guard('karyawan')->user()->absensi()->latest()->get();
-        return view('karyawan.absensi.index', compact('absensi'));
-    }
-    public function kamera()
-    {
-        $karyawan = Auth::guard('karyawan')->user();
-        return view('karyawan.absensi.kamera', [
-            'nama' => $karyawan->nama,
-            'available' => Absensi::where('karyawan_id', $karyawan->id)
-                ->where(function ($q) {
-                    $q->where('approved', 'approved')
-                        ->orWhere('approved', 'pending');
-                })->whereDate('created_at', now())->count() == 0
-        ]);
-    }
-
-    public function absen(Request $request)
-    {
-        $fields = $request->validate([
             'image_data' => 'required|string',
+            'tipe' => 'required|in:masuk,pulang',
             'lokasi' => 'nullable'
         ]);
 
@@ -85,7 +98,7 @@ class AbsensiController extends Controller
         $imageManager = new ImageManager(new Driver());
         $img = $imageManager->read($imageData);
 
-        $path = 'absensi/' . Carbon::now()->format('Y-m-d') . '/' . $karyawan->id . '.jpeg';
+        $path = 'absensi/' . Carbon::now()->format('Y-m-d') . '/' . uniqid() . '_' . $karyawan->id . '.jpeg';
 
         Storage::disk('public')->put($path, $img->encode()->toFilePointer());
 
@@ -93,13 +106,13 @@ class AbsensiController extends Controller
         Absensi::create([
             'karyawan_id' => $karyawan->id,
             'tanggal' => Carbon::now(),
-            'status' => 'hadir',
+            'tipe' => $fields['tipe'],
             'foto' => Storage::url($path),
             'lokasi' => $fields['lokasi'] ?? $request->ip(),
             'user_agent' => $request->userAgent(),
         ]);
 
-        return back();
+        return to_route('karyawan.riwayat')->with('success', 'Berhasil melakukan absensi, silahkan menunggu persetujuan!');
     }
 }
 

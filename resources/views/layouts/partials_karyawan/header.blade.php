@@ -41,6 +41,7 @@
     <script src="{{ asset('kaiadmin/assets/js/kaiadmin.min.js') }}"></script>
     
     <!-- Fonts and icons -->
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('js/dayjs.min.js') }}"></script>
     <script src="{{ asset('kaiadmin/assets/js/plugin/webfont/webfont.min.js') }}"></script>
     <script>

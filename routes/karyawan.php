@@ -3,6 +3,8 @@
 use App\Http\Controllers\Karyawan\AbsensiController;
 use App\Http\Controllers\Karyawan\AuthController;
 use App\Http\Controllers\Karyawan\DashboardController;
+use App\Http\Controllers\Karyawan\PerizinanController;
+use App\Http\Controllers\Karyawan\RiwayatController;
 use App\Http\Controllers\Karyawan\SlipGajiController;
 
 Route::prefix('login')->middleware('guest.karyawan')->group(function () {
@@ -18,11 +20,14 @@ Route::middleware(['auth.karyawan'])->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('karyawan.dashboard');
         // Route::get('/', [DashboardController::class, fn() => view('karyawan.dashboard')])->name('karyawan.dashboard');
 
-        Route::get('/absensi', [AbsensiController::class, 'history'])->name('karyawan.absensi');
-        Route::get('/absensi/pengajuan', [AbsensiController::class, 'index'])->name('karyawan.absensi.pengajuan');
-        Route::post('/absensi/pengajuan', [AbsensiController::class, 'store'])->name('karyawan.absensi.pengajuan.store');
-        Route::get('/kamera', [AbsensiController::class, 'kamera'])->name('karyawan.absensi.kamera');
-        Route::post('/kamera', [AbsensiController::class, 'absen'])->name('karyawan.absensi.kamera.store');
+        Route::get('/riwayat', [RiwayatController::class, 'index'])->name('karyawan.riwayat');
+        Route::get('/riwayat/perizinan', [RiwayatController::class, 'perizinan'])->name('karyawan.riwayat.perizinan');
+
+        Route::get('/perizinan', [PerizinanController::class, 'index'])->name('karyawan.perizinan');
+        Route::post('/perizinan', [PerizinanController::class, 'store'])->name('karyawan.perizinan.store');
+
+        Route::get('/absensi', [AbsensiController::class, 'index'])->name('karyawan.absensi');
+        Route::post('/absensi', [AbsensiController::class, 'store'])->name('karyawan.absensi.store');
 
         Route::get('/slip', [SlipGajiController::class, 'index'])->name('karyawan.slip');
         Route::get('/slip/cetak', [SlipGajiController::class, 'cetak'])->name('karyawan.slip.cetak');

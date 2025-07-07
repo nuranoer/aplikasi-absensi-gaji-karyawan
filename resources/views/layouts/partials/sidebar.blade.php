@@ -48,18 +48,18 @@
                                 class="{{ request()->is('admin/absensi*') ? '' : 'collapsed' }}"
                                 aria-expanded="{{ request()->is('absensi*') ? 'true' : 'false' }}">
                                 <i class="fas fa-calendar-check"></i>
-                                <p>Absensi</p>
+                                <p>Data Kehadiran</p>
                                 <span class="caret"></span>
                             </a>
                             <div class="collapse {{ request()->is('admin/absensi*') ? 'show' : '' }}" id="absensi">
                                 <ul class="nav nav-collapse">
                                     <li class="nav-item {{ request()->is('admin/absensi') ? 'active' : '' }}">
                                         <a href="{{ url(route('admin.absensi')) }}">
-                                            <span class="sub-item">Data Absensi</span>
+                                            <span class="sub-item">Absensi</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item {{ request()->is('admin/absensi/info') ? 'active' : '' }}">
-                                        <a href="{{ url(route('admin.absensi.info')) }}">
+                                    <li class="nav-item {{ request()->is('admin/perizinan') ? 'active' : '' }}">
+                                        <a href="{{ url(route('admin.perizinan')) }}">
                                             <span class="sub-item">Perizinan</span>
                                         </a>
                                     </li>

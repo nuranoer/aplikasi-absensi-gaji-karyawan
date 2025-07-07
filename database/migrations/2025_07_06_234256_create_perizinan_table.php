@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('absensi', function (Blueprint $table) {
+        Schema::create('perizinan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('karyawan_id')->constrained('karyawan');
-            $table->enum('tipe', ['masuk', 'pulang'])->default('masuk');
+            $table->string('bukti');
+            $table->string('keterangan');
             $table->enum('persetujuan', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->string('foto');
-            $table->string('lokasi')->nullable();
-            $table->string('user_agent')->nullable();
+            $table->enum('jenis', ['izin', 'sakit', 'cuti'])->default('izin');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('absensi');
+        Schema::dropIfExists('perizinan');
     }
 };

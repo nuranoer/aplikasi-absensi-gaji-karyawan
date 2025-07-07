@@ -9,7 +9,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-end">
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambah">
-                            + Tambah Slip Gaji
+                        <i class="fas fa-plus me-2"></i> Tambah Slip Gaji
                         </button>
                     </div>
                 </div>
@@ -35,37 +35,37 @@
                             </thead>
                             <tbody>
                                 @forelse ($data as $slip)
-                                    <tr>
-                                        <td class="text-center">{{ $slip->karyawan->nama ?? '-' }}</td>
-                                        <td class="text-center">
-                                            {{ Carbon\Carbon::create()->month($slip->periode_bulan)->translatedFormat('F') . " {$slip->periode_tahun}" }}
-                                        </td>
-                                        <td class="text-center">Rp{{ number_format($slip->gaji_pokok) }}</td>
-                                        <td class="text-center">Rp{{ number_format($slip->tunjangan) }}</td>
-                                        <td class="text-center">Rp{{ number_format($slip->potongan) }}</td>
-                                        <td class="text-center">Rp{{ number_format($slip->total_gaji) }}</td>
-                                        <td class="text-center">{{ $slip->hari_kerja ?? 0 }}</td>
-                                        <td class="text-center">{{ $slip->izin ?? 0 }}</td>
-                                        <td class="text-center">{{ $slip->sakit ?? 0 }}</td>
-                                        <td class="text-center">{{ $slip->cuti ?? 0 }}</td>
-                                        <td class="text-center">{{ $slip->keterangan ?? "(Tidak ada keterangan)" }}</td>
-                                        <td class="text-center">
-                                            <div class="d-flex gap-2">
-                                                <a class="btn btn-sm btn-primary" target="_blank"
-                                                    href="<?= route('admin.slip.cetak', ['id' => $slip->id]) ?>">
-                                                    Cetak
-                                                </a>
-                                                <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                                    data-bs-target="#modalEdit{{ $slip->id }}">Edit</button>
+                                                                                                    <tr>
+                                                                                                        <td class="text-center">{{ $slip->karyawan->nama ?? '-' }}</td>
+                                                                                                        <td class="text-center">
+                                                                                                            {{ Carbon\Carbon::create()->month($slip->periode_bulan)->translatedFormat('F') . " {$slip->periode_tahun}" }}
+                                                                                                        </td>
+                                                                                                        <td class="text-center">Rp{{ number_format($slip->gaji_pokok) }}</td>
+                                                                                                        <td class="text-center">Rp{{ number_format($slip->tunjangan) }}</td>
+                                                                                                        <td class="text-center">Rp{{ number_format($slip->potongan) }}</td>
+                                                                                                        <td class="text-center">Rp{{ number_format($slip->total_gaji) }}</td>
+                                                                                                        <td class="text-center">{{ $slip->hari_kerja ?? 0 }}</td>
+                                                                                                        <td class="text-center">{{ $slip->izin ?? 0 }}</td>
+                                                                                                        <td class="text-center">{{ $slip->sakit ?? 0 }}</td>
+                                                                                                        <td class="text-center">{{ $slip->cuti ?? 0 }}</td>
+                                                                                                        <td class="text-center">{{ $slip->keterangan ?? "(Tidak ada keterangan)" }}</td>
+                                                                                                        <td class="text-center">
+                                                                                                            <div class="d-flex gap-2">
+                                                                                                                <a class="btn btn-sm btn-primary" target="_blank"
+                                                                                                                    href="<?= route('admin.slip.cetak', ['id' => $slip->id]) ?>">
+                                                                                                                    Cetak
+                                                                                                                </a>
+                                                                                                                <button class="btn btn-sm btn-warning text-white" data-bs-toggle="modal"
+                                                    data-bs-target="#modalEdit{{ $slip->id }}"><i class="fas fa-edit"></i></button>
                                                 <form action="{{ route('admin.slip.destroy', $slip->id) }}" method="POST"
                                                     class="d-inline-block">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-sm btn-danger">Hapus</button>
+                                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                                                 </form>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                                                                                            </div>
+                                                                                                        </td>
+                                                                                                    </tr>
                                     @include('admin.slip.modal', [
                                         'id' => 'modalEdit' . $slip->id,
                                         'title' => 'Edit Slip Gaji',
@@ -74,8 +74,8 @@
                                         'modal_data' => $slip
                                     ])
                                 @empty
-                                                    <tr>
-                                <td colspan="10" class="text-center">Belum ada data slip gaji.</td>
+                                    <tr>
+                                        <td colspan="12" class="text-center">Belum ada data slip gaji.</td>
                                     </tr>
                             @endforelse
         </tbody>

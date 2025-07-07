@@ -124,7 +124,7 @@
     </table>
 
     <div class="footer">
-        Dicetak pada 05-07-2025 10:00<br>
+        Dicetak pada {{ now()->format("d M Y H:i:s") }}<br>
         Slip ini dihasilkan secara otomatis oleh sistem
     </div>
 

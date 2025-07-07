@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AbsensiController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KaryawanController;
+use App\Http\Controllers\Admin\PerizinanController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SlipGajiController;
 
@@ -19,7 +20,10 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/absensi', [AbsensiController::class, 'index'])->name('admin.absensi');
     Route::post('/absensi/{id}/approve', [AbsensiController::class, 'approve'])->name('admin.absensi.approve');
     Route::post('/absensi/{id}/reject', [AbsensiController::class, 'reject'])->name('admin.absensi.reject');
-    Route::get('/absensi/info', [AbsensiController::class, 'info'])->name('admin.absensi.info');
+    
+    Route::get('/perizinan', [PerizinanController::class, 'index'])->name('admin.perizinan');
+    Route::post('/perizinan/{id}/approve', [PerizinanController::class, 'approve'])->name('admin.perizinan.approve');
+    Route::post('/perizinan/{id}/reject', [PerizinanController::class, 'reject'])->name('admin.perizinan.reject');
 
 
     Route::get('/slip', [SlipGajiController::class, 'index'])->name('admin.slip');

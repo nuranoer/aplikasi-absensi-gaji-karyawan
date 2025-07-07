@@ -4,7 +4,7 @@
 
 @section('content')
     @if ($available)
-        <form id="form" action="<?= route('karyawan.absensi.pengajuan.store') ?>" method="post" enctype="multipart/form-data">
+        <form id="form" action="<?= route('karyawan.perizinan.store') ?>" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="col">
@@ -16,8 +16,8 @@
                                 required>
                         </div>
                         <div class="mb-3">
-                            <label for="status" class="form-label">Tipe Perizinan</label>
-                            <select id="status" class="form-select" name="status" aria-label="Default select example" required>
+                            <label for="jenis" class="form-label">Tipe Perizinan</label>
+                            <select id="jenis" class="form-select" name="jenis" required>
                                 <option value="izin" selected>Izin</option>
                                 <option value="sakit">Sakit</option>
                                 <option value="cuti">Cuti</option>

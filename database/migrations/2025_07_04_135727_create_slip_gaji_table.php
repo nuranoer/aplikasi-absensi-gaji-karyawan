@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('slip_gaji', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('karyawan_id');
+            $table->foreignId('karyawan_id')->constrained('karyawan');
             $table->integer('periode_bulan');
             $table->integer('periode_tahun');
             $table->integer('hari_kerja');
@@ -26,8 +26,6 @@ return new class extends Migration
             $table->decimal('total_gaji', 20, 2);
             $table->text('keterangan')->nullable();
             $table->timestamps();
-
-            $table->foreign('karyawan_id')->references('id')->on('tb_karyawan');
         });
 
     }

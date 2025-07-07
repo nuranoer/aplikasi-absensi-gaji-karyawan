@@ -21,12 +21,10 @@ class DashboardController extends Controller
 
         $hadir = $karyawan->absensi()->whereMonth('created_at', $bulanIni)
             ->whereYear('created_at', $tahunIni)
-            ->where('status', 'hadir')
             ->count();
 
-        $tidakHadir = $karyawan->absensi()->whereMonth('created_at', $bulanIni)
+        $tidakHadir = $karyawan->perizinan()->whereMonth('created_at', $bulanIni)
             ->whereYear('created_at', $tahunIni)
-            ->where('status', '!=', 'hadir')
             ->count();
 
         $totalGaji = $karyawan->slipGaji()->whereMonth('created_at', $bulanIni)

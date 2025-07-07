@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-end">
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambah">
-                            + Tambah Karyawan
+                            <i class="fas fa-plus me-2"></i> Tambah Karyawan
                         </button>
                     </div>
                 </div>
@@ -37,13 +37,13 @@
                                         <td class="text-center">{{ $k->created_at->format('d M Y') }}</td>
                                         <td class="text-center">
                                             <div class="d-flex gap-2">
-                                                <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                                    data-bs-target="#modalEdit{{ $k->id }}">Edit</button>
+                                                <button class="btn btn-sm btn-warning text-white" data-bs-toggle="modal"
+                                                    data-bs-target="#modalEdit{{ $k->id }}"><i class="fas fa-edit"></i></button>
                                                 <form action="{{ route('admin.karyawan.destroy', $k->id) }}" method="POST"
                                                     class="d-inline-block">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-sm btn-danger">Hapus</button>
+                                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </div>
                                         </td>

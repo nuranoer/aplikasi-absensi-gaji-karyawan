@@ -155,7 +155,7 @@
                 required>
 
             <div class="input-group mb-3">
-                <input type="password" name="password" id="password" class="form-control" placeholder="Password"
+                <input type="password" name="password" id="password" class="form-control m-auto" placeholder="Password"
                     required>
                 <span class="input-group-text" onclick="togglePassword('password', this)">
                     <i class="bi bi-eye-slash"></i>
@@ -163,8 +163,8 @@
             </div>
 
             <div class="input-group mb-3">
-                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
-                    placeholder="Konfirmasi Password" required>
+                <input type="password" name="password_confirmation" id="password_confirmation"
+                    class="form-control m-auto" placeholder="Konfirmasi Password" required>
                 <span class="input-group-text" onclick="togglePassword('password_confirmation', this)">
                     <i class="bi bi-eye-slash"></i>
                 </span>

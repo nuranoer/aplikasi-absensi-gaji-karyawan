@@ -1,17 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Karyawan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Absensi;
-use App\Models\Karyawan;
+use Auth;
 use Illuminate\Http\Request;
 
-class AbsensiController extends Controller
+class RiwayatController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $absensi = Absensi::with('karyawan')->whereIn('persetujuan', ['approved', 'pending'])
+        $karyawan = Auth::guard('karyawan')->user();
+
+        $absensi = Absensi::where('karyawan_id', $karyawan->id)
+            ->whereIn('persetujuan', ['approved', 'pending'])
             ->latest()
             ->get()
             ->groupBy(function ($item) {
@@ -28,10 +31,8 @@ class AbsensiController extends Controller
             if ($hasPulang)
                 $jumlah++;
 
-
             return [
                 ...$items->first()->except(['tipe', 'foto', 'lokasi']),
-                'karyawan' => $items->first()->karyawan,
                 'foto_masuk' => $items->firstWhere('tipe', 'masuk')->foto ?? '',
                 'foto_pulang' => $items->firstWhere('tipe', 'pulang')->foto ?? '',
                 'lokasi_masuk' => $items->firstWhere('tipe', 'masuk')->lokasi ?? '',
@@ -39,24 +40,11 @@ class AbsensiController extends Controller
                 'status' => "{$jumlah}/2",
             ];
         })->values();
-        return view('admin.absensi.index', compact('riwayat'));
+        return view('karyawan.riwayat.index', compact('riwayat'));
     }
-
-    public function approve($id)
+    public function perizinan()
     {
-        $absensi = Absensi::findOrFail($id);
-        $absensi->persetujuan = 'approved';
-        $absensi->save();
-
-        return back()->with('success', 'Berhasil di-approve.');
-    }
-
-    public function reject($id)
-    {
-        $absensi = Absensi::findOrFail($id);
-        $absensi->persetujuan = 'rejected';
-        $absensi->save();
-
-        return back()->with('success', 'Berhasil di-reject.');
+        $absensi = Auth::guard('karyawan')->user()->perizinan()->latest()->get();
+        return view('karyawan.riwayat.perizinan', compact('absensi'));
     }
 }

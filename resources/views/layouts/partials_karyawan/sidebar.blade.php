@@ -33,33 +33,49 @@
                             </a>
                         </li>
 
-                        <!-- Absensi Kamera -->
-                        <li class="nav-item {{ request()->is('karyawan/kamera*') ? 'active' : '' }}">
-                            <a href="{{ route('karyawan.absensi.kamera') }}">
-                                <i class="fas fa-camera"></i>
-                                <p>Absensi</p>
-                            </a>
-                        </li>
-
-
                         <!-- Info Kehadiran -->
                         <li class="nav-item {{ request()->is('karyawan/absensi*') ? 'active' : '' }}">
-                            <a data-bs-toggle="collapse" href="#absensi" class="{{ request()->is('karyawan/absensi*') ? '' : 'collapsed' }}"
+                            <a data-bs-toggle="collapse" href="#absensi"
+                                class="{{ request()->is('karyawan/absensi*') ? '' : 'collapsed' }}"
                                 aria-expanded="{{ request()->is('absensi*') ? 'true' : 'false' }}">
-                                <i class="fas fa-clipboard-list"></i>
+                                <i class="fas fa-calendar-check"></i>
                                 <p>Kehadiran</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse {{ request()->is('karyawan/absensi*') ? 'show' : '' }}" id="absensi">
+                            <div class="collapse {{ request()->is('karyawan/absensi') ? 'show' : '' }}" id="absensi">
                                 <ul class="nav nav-collapse">
                                     <li class="nav-item {{ request()->is('karyawan/absensi') ? 'active' : '' }}">
-                                        <a href="{{ url(route('karyawan.absensi')) }}">
-                                            <span class="sub-item">Riwayat</span>
+                                        <a href="{{ route('karyawan.absensi') }}">
+                                            <span class="sub-item">Absensi</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item {{ request()->is('karyawan/absensi/pengajuan') ? 'active' : '' }}">
-                                        <a href="{{ url(route('karyawan.absensi.pengajuan')) }}">
-                                            <span class="sub-item">Pengajuan Izin</span>
+                                    <li
+                                        class="nav-item {{ request()->is('karyawan/perizinan') ? 'active' : '' }}">
+                                        <a href="{{ url(route('karyawan.perizinan')) }}">
+                                            <span class="sub-item">Perizinan</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item {{ request()->is('karyawan/riwayat*') ? 'active' : '' }}">
+                            <a data-bs-toggle="collapse" href="#riwayat" class="{{ request()->is('karyawan/riwayat*') ? '' : 'collapsed' }}"
+                                aria-expanded="{{ request()->is('karyawan/riwayat*') ? 'true' : 'false' }}">
+                                <i class="fas fa-clipboard-list"></i>
+                                <p>Riwayat</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse {{ request()->is('karyawan/riwayat') ? 'show' : '' }}" id="riwayat">
+                                <ul class="nav nav-collapse">
+                                    <li class="nav-item {{ request()->is('karyawan/riwayat') ? 'active' : '' }}">
+                                        <a href="{{ route('karyawan.riwayat') }}">
+                                            <span class="sub-item">Absensi</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item {{ request()->is('karyawan/riwayat/perizinan') ? 'active' : '' }}">
+                                        <a href="{{ url(route('karyawan.riwayat.perizinan')) }}">
+                                            <span class="sub-item">Perizinan</span>
                                         </a>
                                     </li>
                                 </ul>

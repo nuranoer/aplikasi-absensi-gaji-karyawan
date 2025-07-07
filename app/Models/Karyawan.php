@@ -21,6 +21,11 @@ class Karyawan extends Authenticatable
         return $this->hasMany(Absensi::class);
     }
 
+    public function perizinan()
+    {
+        return $this->hasMany(Perizinan::class);
+    }
+
     public function slipGaji(){
         return $this->hasMany(SlipGaji::class);
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Absensi;
+use App\Models\Perizinan;
 use App\Models\SlipGaji;
 use App\Models\Karyawan;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -42,16 +43,19 @@ class SlipGajiController extends Controller
         $karyawan_id = $fields['karyawan_id'];
 
         // Hitung data absensi
-        $absensiQuery = Absensi::where('karyawan_id', $karyawan_id)
+        $hadir = Absensi::where('karyawan_id', $karyawan_id)
             ->whereMonth('created_at', $fields['periode_bulan'])
             ->whereYear('created_at', $fields['periode_tahun'])
-            ->where('approved', 'approved');
-
-        $izin = (clone $absensiQuery)->where('status', 'izin')->count();
-        $sakit = (clone $absensiQuery)->where('status', 'sakit')->count();
-        $cuti = (clone $absensiQuery)->where('status', 'cuti')->count();
-        $hadir = (clone $absensiQuery)->where('status', 'hadir')->count();
+            ->where('persetujuan', 'approved')->count();
         $totalHariKerja = $hadir;
+
+        $perizinanQuery = Perizinan::where('karyawan_id', $karyawan_id)
+            ->whereMonth('created_at', $fields['periode_bulan'])
+            ->whereYear('created_at', $fields['periode_tahun'])
+            ->where('persetujuan', 'approved');
+        $izin = (clone $perizinanQuery)->where('jenis', 'izin')->count();
+        $sakit = (clone $perizinanQuery)->where('jenis', 'sakit')->count();
+        $cuti = (clone $perizinanQuery)->where('jenis', 'cuti')->count();
 
         // Hitung potongan per hari
         $potonganPerHari = $fields['gaji_pokok'] / 30;
@@ -94,16 +98,19 @@ class SlipGajiController extends Controller
             return back()->with('error', 'Tidak dapat menemukan data!');
 
         // Hitung data absensi
-        $absensiQuery = Absensi::where('karyawan_id', $karyawan_id)
+        $hadir = Absensi::where('karyawan_id', $karyawan_id)
             ->whereMonth('created_at', $fields['periode_bulan'])
             ->whereYear('created_at', $fields['periode_tahun'])
-            ->where('approved', 'approved');
-
-        $izin = (clone $absensiQuery)->where('status', 'izin')->count();
-        $sakit = (clone $absensiQuery)->where('status', 'sakit')->count();
-        $cuti = (clone $absensiQuery)->where('status', 'cuti')->count();
-        $hadir = (clone $absensiQuery)->where('status', 'hadir')->count();
+            ->where('persetujuan', 'approved')->count();
         $totalHariKerja = $hadir;
+
+        $perizinanQuery = Perizinan::where('karyawan_id', $karyawan_id)
+            ->whereMonth('created_at', $fields['periode_bulan'])
+            ->whereYear('created_at', $fields['periode_tahun'])
+            ->where('persetujuan', 'approved');
+        $izin = (clone $perizinanQuery)->where('jenis', 'izin')->count();
+        $sakit = (clone $perizinanQuery)->where('jenis', 'sakit')->count();
+        $cuti = (clone $perizinanQuery)->where('jenis', 'cuti')->count();
 
         // Hitung potongan per hari
         $potonganPerHari = $fields['gaji_pokok'] / 30;
@@ -138,7 +145,7 @@ class SlipGajiController extends Controller
         $success = $slip->delete();
         if ($success) {
             return back()->with('success', 'Berhasil menghapus data!');
-        }else {
+        } else {
             return back()->with('error', 'Gagal menghapus data!');
         }
     }

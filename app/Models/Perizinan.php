@@ -4,21 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Absensi extends Model
+class Perizinan extends Model
 {
-    protected $table = 'absensi';
+    protected $table = 'perizinan';
 
     protected $fillable = [
         'karyawan_id',
-        'tipe',
+        'bukti',
+        'keterangan',
         'persetujuan',
-        'foto',
-        'lokasi',
-        'user_agent',
+        'jenis',
     ];
 
     public function karyawan()
     {
         return $this->belongsTo(Karyawan::class);
     }
+
 }

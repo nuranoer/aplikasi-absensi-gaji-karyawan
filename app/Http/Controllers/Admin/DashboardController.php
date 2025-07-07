@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Karyawan;
+use App\Models\Perizinan;
 use Illuminate\Http\Request;
 use App\Models\Absensi;
 use App\Models\SlipGaji;
@@ -18,12 +19,10 @@ class DashboardController extends Controller
 
         $hadir = Absensi::whereMonth('created_at', $bulanIni)
             ->whereYear('created_at', $tahunIni)
-            ->where('status', 'hadir')
             ->count();
 
-        $tidakHadir = Absensi::whereMonth('created_at', $bulanIni)
+        $tidakHadir = Perizinan::whereMonth('created_at', $bulanIni)
             ->whereYear('created_at', $tahunIni)
-            ->where('status', '!=', 'hadir')
             ->count();
 
         $totalGaji = SlipGaji::whereMonth('created_at', $bulanIni)
