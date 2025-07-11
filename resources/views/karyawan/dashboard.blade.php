@@ -4,7 +4,7 @@
 @php
     function shortNumber($num)
     {
-        $units = ['', 'K', 'M', 'B', 'T'];
+        $units = ['', 'K', 'JT', 'M', 'T'];
         $i = 0;
 
         while ($num >= 1000 && $i < count($units) - 1) {

@@ -26,7 +26,8 @@ Route::middleware(['auth.karyawan'])->group(function () {
         Route::get('/perizinan', [PerizinanController::class, 'index'])->name('karyawan.perizinan');
         Route::post('/perizinan', [PerizinanController::class, 'store'])->name('karyawan.perizinan.store');
 
-        Route::get('/absensi', [AbsensiController::class, 'index'])->name('karyawan.absensi');
+        Route::get('/absensi/masuk', [AbsensiController::class, 'masuk'])->name('karyawan.absensi.masuk');
+        Route::get('/absensi/pulang', [AbsensiController::class, 'pulang'])->name('karyawan.absensi.pulang');
         Route::post('/absensi', [AbsensiController::class, 'store'])->name('karyawan.absensi.store');
 
         Route::get('/slip', [SlipGajiController::class, 'index'])->name('karyawan.slip');
